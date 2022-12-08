@@ -12,45 +12,45 @@ namespace CAFM.Repositorio
         {
             _bd = bd;
         } 
-        public bool Actualizar(Usuario usuario)
+        public bool UpdateUsuario(Usuario usuario)
         {
             _bd.Usuario.Update(usuario);
-            return Guardar();
+            return SaveUsuario();
         }
 
-        public bool Borrar(Usuario usuario)
+        public bool DeleteUsuario(Usuario usuario)
         {
             _bd.Usuario.Remove(usuario);
-            return Guardar();
+            return SaveUsuario();
         }
 
-        public bool Crear(Usuario usuario)
+        public bool CreateUsuario(Usuario usuario)
         {
             _bd.Usuario.Add(usuario);
-            return Guardar();
+            return SaveUsuario();
         }
 
-        public bool Existe(string email)
+        public bool ExistUsuario(string email)
         {
             return _bd.Usuario.Any(u => u.Email.ToLower().Trim() == email.ToLower().Trim());
         }
 
-        public bool Existe(int id)
+        public bool ExistUsuario(int id)
         {
             return _bd.Usuario.Any(u => u.Id == id);
         }
 
-        public bool Guardar()
+        public bool SaveUsuario()
         {
             return _bd.SaveChanges() >= 0 ? true : false;
         }
 
-        public Usuario Obtener(int id)
+        public Usuario GetUsuario(int id)
         {
             return _bd.Usuario.FirstOrDefault(u => u.Id == id);
         }
 
-        public ICollection<Usuario> ObtenerTodos()
+        public ICollection<Usuario> GetUsuario()
         {
             return _bd.Usuario.OrderBy(u => u.Nombre).ToList();
         }
