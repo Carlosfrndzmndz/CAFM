@@ -1,4 +1,7 @@
+using CAFM.CAFMMappers;
 using CAFM.Data;
+using CAFM.Repositorio;
+using CAFM.Repositorio.IRepositorio;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -10,6 +13,14 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString("conexionSql"));
 });
+
+//Agregar REpositorios
+builder.Services.AddScoped<IUsuarioRepositorio, UsuarioRepositorio>();
+
+//AAgregar AutoMapper
+
+builder.Services.AddAutoMapper(typeof(CAFMMapper));
+
 // Add services to the container.
 
 builder.Services.AddControllers();

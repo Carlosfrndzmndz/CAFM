@@ -8,7 +8,7 @@ namespace CAFM.Repositorio.IRepositorio
         bool UpdateUsuario(Usuario usuario);
         bool DeleteUsuario(Usuario usuario);
         Usuario GetUsuario(int id);
-        ICollection<Usuario> GetUsuario();
+        ICollection<Usuario> GetUsuarios();
         bool ExistUsuario(string email);
         bool ExistUsuario(int id);
         bool SaveUsuario();

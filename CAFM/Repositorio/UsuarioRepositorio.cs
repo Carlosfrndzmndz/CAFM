@@ -50,7 +50,7 @@ namespace CAFM.Repositorio
             return _bd.Usuario.FirstOrDefault(u => u.Id == id);
         }
 
-        public ICollection<Usuario> GetUsuario()
+        public ICollection<Usuario> GetUsuarios()
         {
             return _bd.Usuario.OrderBy(u => u.Nombre).ToList();
         }
