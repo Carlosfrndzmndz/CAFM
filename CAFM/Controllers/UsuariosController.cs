@@ -85,5 +85,52 @@ namespace CAFM.Controllers
             }
             return CreatedAtRoute("GetUsuario", new { usuarioId = usuario.Id }, usuario);
         }
+
+        [HttpPatch("{usuarioId:int}", Name = "UpdateUsuario")]
+        [ProducesResponseType(201, Type = typeof(UpdateUsuarioDto))]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public IActionResult UpdateUsuario(int usuarioId,[FromBody] UpdateUsuarioDto usuarioDto)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            if (usuarioDto == null || usuarioId != usuarioDto.Id)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var usuario = _mapper.Map<Usuario>(usuarioDto);
+
+            if (!_usuarioRepositorio.UpdateUsuario(usuario))
+            {
+                ModelState.AddModelError("", "Error al actualizar el usuario");
+                return StatusCode(500, ModelState);
+            }
+            return NoContent();
+        }
+
+        [HttpDelete("{usuarioId:int}", Name = "DeleteUsuario")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public IActionResult DeleteUsuario(int usuarioId)
+        {
+            if(!_usuarioRepositorio.ExistUsuario(usuarioId))
+            {
+                return NotFound();
+            }
+
+            var usuario = _usuarioRepositorio.GetUsuario(usuarioId);
+
+            if (!_usuarioRepositorio.DeleteUsuario(usuario))
+            {
+                ModelState.AddModelError("", "Error al borrar el usuario");
+                return StatusCode(500, ModelState);
+            }
+            return NoContent();
+        }
     }
 }

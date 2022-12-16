@@ -10,6 +10,7 @@ namespace CAFM.CAFMMappers
         {
             CreateMap<Usuario, UsuarioDto_cs>().ReverseMap();
             CreateMap<Usuario, CreateUsuarioDto_cs>().ReverseMap();
+            CreateMap<Usuario, UpdateUsuarioDto>().ReverseMap();
         }
     }
 }
